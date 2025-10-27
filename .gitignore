@@ -1,0 +1,24 @@
+# === Node / NestJS ===
+node_modules/
+dist/
+.env
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# === Flutter ===
+**/build/
+**/.dart_tool/
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.packages
+**/.pub-cache/
+**/.pub/
+**/.idea/
+**/.vscode/
+*.iml
+
+# === Misc ===
+.DS_Store
+Thumbs.db
+*.log
