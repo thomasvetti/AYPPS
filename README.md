@@ -60,4 +60,4 @@ POST	    /tasks	    Crear una nueva tarea
 GET	        /tasks	    Listar todas las tareas
 GET	        /tasks/:id	Obtener una tarea específica
 PATCH	    /tasks/:id	Actualizar tarea
-DELETE	    /tasks/:id	Eliminar tarea
+DELETE	    /tasks/:id	Eliminar tareab 
