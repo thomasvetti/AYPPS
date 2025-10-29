@@ -66,6 +66,14 @@ class _TaskListScreenState extends State<TaskListScreen> {
                         ),
                       ),
                       subtitle: Text(task.description ?? ''),
+                      onTap: () async {
+                        final result = await Navigator.pushNamed(
+                          context,
+                          '/edit',
+                          arguments: task,
+                        );
+                        if (result == true) _refreshTasks();
+                      },
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
