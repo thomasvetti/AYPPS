@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/login_screen.dart';
 import 'screens/task_list_screen.dart';
 import 'screens/add_task_screen.dart';
 import 'screens/edit_task_screen.dart';
@@ -20,11 +21,19 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
       ),
-      home: const TaskListScreen(),
+
+      // 👇 Punto de entrada de la app (pantalla de login)
+      initialRoute: '/',
+
+      routes: {
+        '/': (context) => const LoginScreen(),
+        '/tasks': (context) => const TaskListScreen(),
+        '/add': (context) => const AddTaskScreen(),
+        // 👇 esta ruta necesita argumentos, por eso la manejamos manualmente
+      },
+
       onGenerateRoute: (settings) {
-        if (settings.name == '/add') {
-          return MaterialPageRoute(builder: (_) => const AddTaskScreen());
-        } else if (settings.name == '/edit') {
+        if (settings.name == '/edit') {
           final task = settings.arguments as Task;
           return MaterialPageRoute(builder: (_) => EditTaskScreen(task: task));
         }

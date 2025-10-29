@@ -6,7 +6,7 @@ import '../models/task.dart';
 // http://10.0.2.2:3000/tasks // Emulador Android
 // http://localhost:3000/tasks // Red local
 class ApiService {
-  static const String baseUrl = 'http://localhost:3000/tasks';
+  static const String baseUrl = 'http://10.0.2.2:3000/tasks';
   Future<List<Task>> fetchTasks() async {
     final response = await http.get(Uri.parse(baseUrl));
     if (response.statusCode == 200) {
