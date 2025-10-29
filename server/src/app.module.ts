@@ -1,19 +1,23 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TasksModule } from './tasks/tasks.module';
 import { ConfigModule } from '@nestjs/config';
+import { TasksModule } from './tasks/tasks.module';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(), // Carga variables de entorno del .env
+    ConfigModule.forRoot(), // carga variables del .env
     TypeOrmModule.forRoot({
       type: 'postgres',
-      url: process.env.DATABASE_URL, // Usará la variable del archivo .env
+      url: process.env.DATABASE_URL,
       autoLoadEntities: true,
-      synchronize: true, // ⚠️ solo para desarrollo
-      ssl: { rejectUnauthorized: false }, // necesario para Neon
+      synchronize: true, // ⚠️ solo en desarrollo
+      ssl: { rejectUnauthorized: false },
     }),
     TasksModule,
+    UsersModule,
+    AuthModule,
   ],
 })
 export class AppModule {}
