@@ -39,8 +39,11 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     value == null || value.isEmpty ? 'Campo obligatorio' : null,
               ),
               TextFormField(
-                decoration: const InputDecoration(labelText: 'Descripción'),
-                onChanged: (value) => description = value,
+                textInputAction: TextInputAction.next,
+                decoration: const InputDecoration(
+                  labelText: 'Título',
+                  prefixIcon: Icon(Icons.title),
+                ),
               ),
               const SizedBox(height: 20),
               ElevatedButton(

@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/task.dart';
+//https://aypps.onrender.com/tasks
 
 class ApiService {
-  static const String baseUrl = 'https://aypps.onrender.com/tasks';
-
+  static const String baseUrl = 'http://10.0.2.2:3000/tasks';
   Future<List<Task>> fetchTasks() async {
     final response = await http.get(Uri.parse(baseUrl));
     if (response.statusCode == 200) {

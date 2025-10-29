@@ -15,15 +15,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Gestor de Tareas',
-      theme: ThemeData(primarySwatch: Colors.indigo),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const TaskListScreen(),
-        '/add': (context) => const AddTaskScreen(),
-        '/edit': (context) {
-          final task = ModalRoute.of(context)!.settings.arguments as Task;
-          return EditTaskScreen(task: task);
-        },
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
+      ),
+      home: const TaskListScreen(),
+      onGenerateRoute: (settings) {
+        if (settings.name == '/add') {
+          return MaterialPageRoute(builder: (_) => const AddTaskScreen());
+        } else if (settings.name == '/edit') {
+          final task = settings.arguments as Task;
+          return MaterialPageRoute(builder: (_) => EditTaskScreen(task: task));
+        }
+        return null;
       },
     );
   }

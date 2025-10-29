@@ -52,20 +52,41 @@ class _TaskListScreenState extends State<TaskListScreen> {
                 itemBuilder: (context, index) {
                   final task = tasks[index];
                   return Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    elevation: 2,
                     margin: const EdgeInsets.symmetric(
                       horizontal: 12,
                       vertical: 6,
                     ),
                     child: ListTile(
+                      leading: Icon(
+                        task.completed
+                            ? Icons.check_circle
+                            : Icons.circle_outlined,
+                        color: task.completed ? Colors.green : Colors.grey,
+                        size: 30,
+                      ),
                       title: Text(
                         task.title,
                         style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
                           decoration: task.completed
                               ? TextDecoration.lineThrough
                               : TextDecoration.none,
                         ),
                       ),
-                      subtitle: Text(task.description ?? ''),
+                      subtitle:
+                          task.description != null &&
+                              task.description!.isNotEmpty
+                          ? Text(
+                              task.description!,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            )
+                          : null,
                       onTap: () async {
                         final result = await Navigator.pushNamed(
                           context,
@@ -74,27 +95,15 @@ class _TaskListScreenState extends State<TaskListScreen> {
                         );
                         if (result == true) _refreshTasks();
                       },
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                            icon: Icon(
-                              task.completed
-                                  ? Icons.check_box
-                                  : Icons.check_box_outline_blank,
-                              color: Colors.green,
-                            ),
-                            onPressed: () async {
-                              task.completed = !task.completed;
-                              await apiService.updateTask(task);
-                              _refreshTasks();
-                            },
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.delete, color: Colors.red),
-                            onPressed: () => _deleteTask(task.id),
-                          ),
-                        ],
+                      trailing: IconButton(
+                        icon: const Icon(Icons.delete, color: Colors.red),
+                        onPressed: () async {
+                          await apiService.deleteTask(task.id);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Tarea eliminada')),
+                          );
+                          _refreshTasks();
+                        },
                       ),
                     ),
                   );
